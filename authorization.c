@@ -3,6 +3,18 @@
 #include <stdio.h>
 #include <time.h>
 
+/*
+
+  This program is an authentication and authorization system for a small database. I created This
+  with the idea of data persistence while the program is running and losing it when it exits.
+  Eventually I will come back and add in data persistence when the program closes and saving
+  the information to a hidden file on your computer. In all of this I added a rock, paper,
+  scissors game to make sure the data was holding up through the program. This program can let
+  only one user at a time be logged in but while not logged in a user can check their profile
+  as long as they have there identifier, username and password.
+
+*/
+
 struct users {
 
   char first_name[30];
