@@ -59,12 +59,12 @@ void set_up_game(struct users *);
 int main(int argc, char const *argv[]) {
 
   // ==== Interface Commands ==== //
-  int quit = 00;
-  int enter_interface = 77;
+  char quit[3] = "00";
+  char enter_interface[3] = "77";
 
-  int user_input;
+  char user_input[3];
 
-  while (user_input != quit) {
+  while (strcmp(user_input, quit) != 0) {
 
     printf("\n\t\t\t** Welcome To Honkeys!! **\n");
 
@@ -72,15 +72,15 @@ int main(int argc, char const *argv[]) {
     printf("\t\t\t** Please Type 77 To Enter Interface **\n\n\n\n");
     printf("Enter Code: ");
 
-    scanf("%d", &user_input);
+    scanf("%s", user_input);
 
-    if (user_input == quit) {
+    if (strcmp(user_input, quit) == 0) {
       printf("Bye!\n");
       return 0;
-    } else if (user_input == enter_interface) {
+    } else if (strcmp(user_input, enter_interface) == 0) {
       home_interactions_out();
     } else {
-      return 0;
+      continue;
     }
 
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -177,8 +177,9 @@ int sign_in(struct users *profile) {
           printf("\n%s, Your Are Signed In!\n", profile->user_name);
           return 1;
         } else {
-          direct_user = 0;
-          return 0;
+          printf("** Incorrect Information, Please Try Again **\n");
+          // direct_user = 0;
+          continue;
         }
 
       } else {
@@ -194,34 +195,34 @@ int sign_in(struct users *profile) {
 int home_interactions_out() {
 
   // ==== Interface Commands ==== //
-  int quit = 00;
-  int log_in = 11;
-  int check_user = 22;
-  int create_user = 33;
+  char quit[3] = "00";
+  char log_in[3] = "11";
+  char check_user[3] = "22";
+  char create_user[3] = "33";
 
-  int user_input;
+  char user_input[3];
   direct_user = 0;
   int signed_in = 0;
 
-  while (user_input != quit || user_input != log_in) {
+  while (strcmp(user_input, quit) != 0 || strcmp(user_input, log_in) != 0) {
 
     print_instructions();
     printf("Enter Code: ");
 
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n - - > ");
 
-    scanf("%d", &user_input);
+    scanf("%s", user_input);
 
-    if (user_input == quit) {
+    if (strcmp(user_input, quit) == 0) {
       printf("Bye!\n");
       return 0;
-    } else if (user_input == create_user) {
+    } else if (strcmp(user_input, create_user) == 0) {
       read_information(&profiles[users]);
       users++;
-    } else if (user_input == check_user) {
+    } else if (strcmp(user_input, check_user) == 0) {
       checker();
       direct_user = 0;
-    } else if (user_input == log_in) {
+    } else if (strcmp(user_input, log_in) == 0) {
 
       if (users < 1) {
         printf("Sorry There Are No Profiles Here...\n");
@@ -238,11 +239,10 @@ int home_interactions_out() {
       if (signed_in == 1) {
         home_interactions_in();
         signed_in = 0;
-        direct_user = 0;
-
+        // direct_user = 0;
       }
     } else {
-      return 0;
+      continue;
     }
 
   }
@@ -253,31 +253,31 @@ int home_interactions_out() {
 int home_interactions_in() {
 
   // ==== Interface Commands ==== //
-  int log_out = 44;
-  int check_user = 55;
-  int game = 66;
+  char log_out[3] = "44";
+  char check_user[3] = "55";
+  char game[3] = "66";
 
-  int user_input;
+  char user_input[3];
 
-  while (user_input != log_out) {
+  while (strcmp(user_input, log_out) != 0) {
 
     print_signed_instructions();
     printf("Enter Code: ");
 
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n - - > ");
 
-    scanf("%d", &user_input);
+    scanf("%s", user_input);
 
-    if (user_input == log_out) {
+    if (strcmp(user_input, log_out) == 0) {
       direct_user = 0;
       printf("Now Logging You Out!\n");
       break;
-    } else if (user_input == check_user) {
+    } else if (strcmp(user_input, check_user) == 0) {
       checker();
-    } else if (user_input == game) {
+    } else if (strcmp(user_input, game) == 0) {
       set_up_game(&profiles[direct_user - 1]);
     } else {
-      return 0;
+      continue;
     }
 
   }
